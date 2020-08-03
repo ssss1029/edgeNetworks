@@ -52,7 +52,7 @@ parser.add_argument('--resume', default='', type=str, metavar='PATH',
                     help='path to latest checkpoint (default: none)')
 parser.add_argument('--tmp', help='tmp folder', default='checkpoints/TEMP')
 # ================ dataset
-parser.add_argument('--dataset', help='root folder of dataset', default='/home/saurav/data')
+parser.add_argument('--dataset', help='root folder of dataset', default='/data/sauravkadavath/BSDS_Dataset')
 args = parser.parse_args()
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   # see issue #152
@@ -207,9 +207,18 @@ def main():
         scheduler.step() # will adjust learning rate
 
 
+means = [104.00698793,116.66876762,122.67891434]
+def unnormalize(image):
+    image[:,0] += means[0]
+    image[:,1] += means[1]
+    image[:,2] += means[2]
+
+    image = image / 255.0
+    return image
+
 def train(train_loader, model, optimizer, epoch, save_dir):
     
-    adversary = PGD_l2(epsilon=8./255, num_steps=10, step_size=2./255).cuda()
+    adversary = PGD(epsilon=20, num_steps=20, step_size=2.0).cuda()
     
     batch_time = Averagvalue()
     data_time = Averagvalue()
@@ -225,8 +234,9 @@ def train(train_loader, model, optimizer, epoch, save_dir):
         data_time.update(time.time() - end)
         image, label = image.cuda(), label.cuda()
 
+        outputs_clean = model(image)
         image_adv = adversary(model, image, label)
-        outputs = model(image_adv)        
+        outputs = model(image_adv)
 
         loss = torch.zeros(1).cuda()
         for o in outputs:
@@ -262,14 +272,20 @@ def train(train_loader, model, optimizer, epoch, save_dir):
             # Save output from model
             label_out = torch.eq(label, 1).float()
             outputs.append(label_out)
+            outputs.extend(outputs_clean)
             _, _, H, W = outputs[0].shape
             all_results = torch.zeros((len(outputs), 1, H, W))
             for j in range(len(outputs)):
                 all_results[j, 0, :, :] = outputs[j][0, 0, :, :]
-            torchvision.utils.save_image(1-all_results, join(save_dir, "iter-%d.jpg" % i))
+            torchvision.utils.save_image(1-all_results, join(save_dir, "edges.jpg"), nrow=4)
             
             # Save adversarial iamge
-            torchvision.utils.save_image(image_adv, join(save_dir, "adversarial_iter-%d.jpg" % i))
+            torchvision.utils.save_image(unnormalize(image_adv), join(save_dir, "adversarial.jpg"))
+
+            # Save standard iamge
+            torchvision.utils.save_image(unnormalize(image), join(save_dir, "standard.jpg"))
+
+        exit()
             
 
     # save checkpoint
@@ -359,31 +375,9 @@ def cross_entropy_loss_RCF(prediction, label):
 # Adversarial stuff
 ########################################################################
 
-def normalize_l2(x):
-    """
-    Expects x.shape == [N, C, H, W]
-    """
-    norm = torch.norm(x.view(x.size(0), -1), p=2, dim=1)
-    norm = norm.unsqueeze(-1).unsqueeze(-1).unsqueeze(-1)
-    return x / norm
 
-
-def tensor_clamp_l2(x, center, radius):
-    """batched clamp of x into l2 ball around center of given radius"""
-    x = x.data
-    diff = x - center
-    diff_norm = torch.norm(diff.view(diff.size(0), -1), p=2, dim=1)
-    project_select = diff_norm > radius
-    if project_select.any():
-        diff_norm = diff_norm.unsqueeze(-1).unsqueeze(-1).unsqueeze(-1)
-        new_x = x
-        new_x[project_select] = (center + (diff / diff_norm) * radius)[project_select]
-        return new_x
-    else:
-        return x
-
-class PGD_l2(nn.Module):
-    def __init__(self, epsilon, num_steps, step_size):
+class PGD(nn.Module):
+    def __init__(self, epsilon, num_steps, step_size, grad_sign=True):
         super().__init__()
         self.epsilon = epsilon
         self.num_steps = num_steps
@@ -396,22 +390,30 @@ class PGD_l2(nn.Module):
         :param by: true labels
         :return: perturbed batch of images
         """
-        init_noise = normalize_l2(torch.randn(bx.size()).cuda()) * np.random.rand() * self.epsilon
-        adv_bx = (bx + init_noise).clamp(0, 1).requires_grad_()
+        print(bx)
+
+        adv_bx = bx.detach()
+        adv_bx += torch.zeros_like(adv_bx).uniform_(-self.epsilon, self.epsilon)
 
         for i in range(self.num_steps):
-            outputs = model(adv_bx)
+            adv_bx.requires_grad_()
 
-            loss = torch.zeros(1).cuda()
-            for o in outputs:
-                loss = loss + cross_entropy_loss_RCF(o, label)
+            with torch.enable_grad():
+                outputs = model(adv_bx)
 
-            grad = normalize_l2(torch.autograd.grad(loss, adv_bx, only_inputs=True)[0])
-            adv_bx = adv_bx + self.step_size * grad
-            adv_bx = tensor_clamp_l2(adv_bx, bx, self.epsilon).clamp(0, 1)
-            adv_bx = adv_bx.data.requires_grad_()
+                loss = torch.zeros(1).cuda()
+                for o in outputs:
+                    loss = loss + cross_entropy_loss_RCF(o, by)
 
+            print(loss.item())
+
+            grad = torch.autograd.grad(loss, adv_bx, only_inputs=True)[0]
+
+            adv_bx = adv_bx.detach() + self.step_size * torch.sign(grad.detach())
+
+            adv_bx = torch.min(torch.max(adv_bx, bx - self.epsilon), bx + self.epsilon)
         return adv_bx
+
 
 if __name__ == '__main__':
     main()

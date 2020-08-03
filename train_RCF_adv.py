@@ -197,7 +197,7 @@ def main():
         log.flush() # write log
 
         # Save checkpoint
-        save_file = os.path.join(TMP_DIR, 'checkpoint_epoch{}.pth'.format(epoch))
+        save_file = os.path.join(TMP_DIR, 'checkpoint.pth')
         save_checkpoint({
             'epoch': epoch,
             'state_dict': model.state_dict(),
@@ -218,7 +218,7 @@ def unnormalize(image):
 
 def train(train_loader, model, optimizer, epoch, save_dir):
     
-    adversary = PGD(epsilon=20, num_steps=20, step_size=2.0).cuda()
+    adversary = PGD(epsilon=8, num_steps=0, step_size=2.0).cuda()
     
     batch_time = Averagvalue()
     data_time = Averagvalue()
@@ -270,13 +270,12 @@ def train(train_loader, model, optimizer, epoch, save_dir):
             print(info)
             
             # Save output from model
-            label_out = torch.eq(label, 1).float()
-            outputs.append(label_out)
-            outputs.extend(outputs_clean)
-            _, _, H, W = outputs[0].shape
-            all_results = torch.zeros((len(outputs), 1, H, W))
-            for j in range(len(outputs)):
-                all_results[j, 0, :, :] = outputs[j][0, 0, :, :]
+            label_out = label.float()
+            save_outputs = [outputs[-1], label_out, outputs_clean[-1]]
+            _, _, H, W = save_outputs[0].shape
+            all_results = torch.zeros((len(save_outputs), 1, H, W))
+            for j in range(len(save_outputs)):
+                all_results[j, 0, :, :] = save_outputs[j][0, 0, :, :]
             torchvision.utils.save_image(1-all_results, join(save_dir, "edges.jpg"), nrow=4)
             
             # Save adversarial iamge
@@ -285,8 +284,14 @@ def train(train_loader, model, optimizer, epoch, save_dir):
             # Save standard iamge
             torchvision.utils.save_image(unnormalize(image), join(save_dir, "standard.jpg"))
 
-        exit()
-            
+            # Save checkpoint
+            save_file = os.path.join(TMP_DIR, 'checkpoint.pth')
+            save_checkpoint({
+                'epoch': epoch,
+                'state_dict': model.state_dict(),
+                'optimizer': optimizer.state_dict()
+                            }, filename=save_file)
+
 
     # save checkpoint
     save_checkpoint({
@@ -390,7 +395,6 @@ class PGD(nn.Module):
         :param by: true labels
         :return: perturbed batch of images
         """
-        print(bx)
 
         adv_bx = bx.detach()
         adv_bx += torch.zeros_like(adv_bx).uniform_(-self.epsilon, self.epsilon)
@@ -405,7 +409,7 @@ class PGD(nn.Module):
                 for o in outputs:
                     loss = loss + cross_entropy_loss_RCF(o, by)
 
-            print(loss.item())
+                # print(loss.item())
 
             grad = torch.autograd.grad(loss, adv_bx, only_inputs=True)[0]
 

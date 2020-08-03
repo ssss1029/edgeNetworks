@@ -53,6 +53,12 @@ parser.add_argument('--resume', default='', type=str, metavar='PATH',
 parser.add_argument('--tmp', help='tmp folder', default='checkpoints/TEMP')
 # ================ dataset
 parser.add_argument('--dataset', help='root folder of dataset', default='/data/sauravkadavath/BSDS_Dataset')
+# ================ Adv training
+parser.add_argument('--num-steps', type=int)
+parser.add_argument('--epsilon', type=float)
+parser.add_argument('--step-size', type=float)
+parser.add_argument('--adv-target', type=str)
+
 args = parser.parse_args()
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   # see issue #152
@@ -218,7 +224,7 @@ def unnormalize(image):
 
 def train(train_loader, model, optimizer, epoch, save_dir):
     
-    adversary = PGD(epsilon=8, num_steps=0, step_size=2.0).cuda()
+    adversary = PGD(epsilon=args.epsilon, num_steps=args.num_steps, step_size=args.step_size).cuda()
     
     batch_time = Averagvalue()
     data_time = Averagvalue()
@@ -262,10 +268,11 @@ def train(train_loader, model, optimizer, epoch, save_dir):
             os.makedirs(save_dir)
 
         if i % args.print_freq == 0:
+            loss_100 = epoch_loss[-100:]
+            loss_100 = sum(loss_100) / len(loss_100)
             info = 'Epoch: [{0}/{1}][{2}/{3}] '.format(epoch, args.maxepoch, i, len(train_loader)) + \
                    'Time {batch_time.val:.3f} (avg:{batch_time.avg:.3f}) '.format(batch_time=batch_time) + \
-                   'Loss {loss.val:f} (avg:{loss.avg:f}) '.format(
-                       loss=losses)
+                   'Loss avg:{loss.avg:f}, Last 100 losses avg = {loss_100}'.format(loss=losses, loss_100=loss_100)
             
             print(info)
             
@@ -276,13 +283,13 @@ def train(train_loader, model, optimizer, epoch, save_dir):
             all_results = torch.zeros((len(save_outputs), 1, H, W))
             for j in range(len(save_outputs)):
                 all_results[j, 0, :, :] = save_outputs[j][0, 0, :, :]
-            torchvision.utils.save_image(1-all_results, join(save_dir, "edges.jpg"), nrow=4)
+            torchvision.utils.save_image(1-all_results, join(save_dir, "{0}-edges.jpg".format(i)), nrow=4)
             
             # Save adversarial iamge
-            torchvision.utils.save_image(unnormalize(image_adv), join(save_dir, "adversarial.jpg"))
+            torchvision.utils.save_image(unnormalize(image_adv), join(save_dir, "{0}-adversarial.jpg".format(i)))
 
             # Save standard iamge
-            torchvision.utils.save_image(unnormalize(image), join(save_dir, "standard.jpg"))
+            torchvision.utils.save_image(unnormalize(image), join(save_dir, "{0}-standard.jpg".format(i)))
 
             # Save checkpoint
             save_file = os.path.join(TMP_DIR, 'checkpoint.pth')
@@ -396,6 +403,13 @@ class PGD(nn.Module):
         :return: perturbed batch of images
         """
 
+        if args.adv_target == 'bernoulli':
+            by = torch.round(torch.rand_like(by))
+        elif args.adv_target == 'opposite':
+            by = by
+        else:
+            raise NotImplementedError()
+
         adv_bx = bx.detach()
         adv_bx += torch.zeros_like(adv_bx).uniform_(-self.epsilon, self.epsilon)
 
@@ -413,7 +427,14 @@ class PGD(nn.Module):
 
             grad = torch.autograd.grad(loss, adv_bx, only_inputs=True)[0]
 
-            adv_bx = adv_bx.detach() + self.step_size * torch.sign(grad.detach())
+            if args.adv_target == 'bernoulli':
+                # MINIMIZE loss
+                adv_bx = adv_bx.detach() - self.step_size * torch.sign(grad.detach())
+            elif args.adv_target == 'opposite':
+                # MAXIMIZE loss
+                adv_bx = adv_bx.detach() + self.step_size * torch.sign(grad.detach())
+            else:
+                raise NotImplementedError()
 
             adv_bx = torch.min(torch.max(adv_bx, bx - self.epsilon), bx + self.epsilon)
         return adv_bx

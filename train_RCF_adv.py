@@ -50,7 +50,7 @@ parser.add_argument('--gpu', default='0', type=str,
                     help='GPU ID')
 parser.add_argument('--resume', default='', type=str, metavar='PATH',
                     help='path to latest checkpoint (default: none)')
-parser.add_argument('--tmp', help='tmp folder', default='tmp/RCF')
+parser.add_argument('--tmp', help='tmp folder', default='checkpoints/TEMP')
 # ================ dataset
 parser.add_argument('--dataset', help='root folder of dataset', default='/home/saurav/data')
 args = parser.parse_args()
@@ -74,10 +74,6 @@ def main():
     test_loader = DataLoader(
         test_dataset, batch_size=args.batch_size,
         num_workers=8, drop_last=True,shuffle=False)
-    with open('/home/saurav/data/HED-BSDS/test.lst', 'r') as f:
-        test_list = f.readlines()
-    test_list = [split(i.rstrip())[1] for i in test_list]
-    assert len(test_list) == len(test_loader), "%d vs %d" % (len(test_list), len(test_loader))
 
     # model
     model = RCF()
@@ -92,7 +88,9 @@ def main():
             print("=> loaded checkpoint '{}'"
                   .format(args.resume))
         else:
-            print("=> no checkpoint found at '{}'".format(args.resume))
+            raise Exception()
+    else:
+        raise Exception()
     
     #tune lr
     net_parameters_id = {}
@@ -183,19 +181,21 @@ def main():
     log = Logger(join(TMP_DIR, '%s-%d-log.txt' %('sgd',args.lr)))
     sys.stdout = log
 
-    train_loss = []
-    train_loss_detail = []
     for epoch in range(args.start_epoch, args.maxepoch):
+
         tr_avg_loss, tr_detail_loss = train(
             train_loader, model, optimizer, epoch,
             save_dir = join(TMP_DIR, 'epoch-%d-training-record' % epoch))
-        
-        test(model, test_loader, epoch=epoch, test_list=test_list,
-            save_dir = join(TMP_DIR, 'epoch-%d-testing-record-view' % epoch))
-        
-        multiscale_test(model, test_loader, epoch=epoch, test_list=test_list,
-            save_dir = join(TMP_DIR, 'epoch-%d-testing-record' % epoch))
+
+        with torch.no_grad():
+            # test(model, test_loader, epoch=epoch,
+            #     save_dir = join(TMP_DIR, 'epoch-%d-testing-record-view' % epoch))
+
+            multiscale_test(model, test_loader, epoch=epoch,
+                save_dir = join(TMP_DIR, 'epoch-%d-testing-record' % epoch))
+
         log.flush() # write log
+
         # Save checkpoint
         save_file = os.path.join(TMP_DIR, 'checkpoint_epoch{}.pth'.format(epoch))
         save_checkpoint({
@@ -203,15 +203,18 @@ def main():
             'state_dict': model.state_dict(),
             'optimizer': optimizer.state_dict()
                          }, filename=save_file)
+
         scheduler.step() # will adjust learning rate
-        # save train/val loss/accuracy, save every epoch in case of early stop
-        train_loss.append(tr_avg_loss)
-        train_loss_detail += tr_detail_loss
+
 
 def train(train_loader, model, optimizer, epoch, save_dir):
+    
+    adversary = PGD_l2(epsilon=8./255, num_steps=10, step_size=2./255).cuda()
+    
     batch_time = Averagvalue()
     data_time = Averagvalue()
     losses = Averagvalue()
+
     # switch to train mode
     model.train()
     end = time.time()
@@ -221,31 +224,42 @@ def train(train_loader, model, optimizer, epoch, save_dir):
         # measure data loading time
         data_time.update(time.time() - end)
         image, label = image.cuda(), label.cuda()
-        outputs = model(image)
+
+        image_adv = adversary(model, image, label)
+        outputs = model(image_adv)        
+
         loss = torch.zeros(1).cuda()
         for o in outputs:
             loss = loss + cross_entropy_loss_RCF(o, label)
         counter += 1
+
         loss = loss / args.itersize
         loss.backward()
+
         if counter == args.itersize:
             optimizer.step()
             optimizer.zero_grad()
             counter = 0
+
         # measure accuracy and record loss
         losses.update(loss.item(), image.size(0))
         epoch_loss.append(loss.item())
         batch_time.update(time.time() - end)
         end = time.time()
+
         # display and logging
         if not isdir(save_dir):
             os.makedirs(save_dir)
+
         if i % args.print_freq == 0:
             info = 'Epoch: [{0}/{1}][{2}/{3}] '.format(epoch, args.maxepoch, i, len(train_loader)) + \
                    'Time {batch_time.val:.3f} (avg:{batch_time.avg:.3f}) '.format(batch_time=batch_time) + \
                    'Loss {loss.val:f} (avg:{loss.avg:f}) '.format(
                        loss=losses)
+            
             print(info)
+            
+            # Save output from model
             label_out = torch.eq(label, 1).float()
             outputs.append(label_out)
             _, _, H, W = outputs[0].shape
@@ -253,7 +267,12 @@ def train(train_loader, model, optimizer, epoch, save_dir):
             for j in range(len(outputs)):
                 all_results[j, 0, :, :] = outputs[j][0, 0, :, :]
             torchvision.utils.save_image(1-all_results, join(save_dir, "iter-%d.jpg" % i))
-        # save checkpoint
+            
+            # Save adversarial iamge
+            torchvision.utils.save_image(image_adv, join(save_dir, "adversarial_iter-%d.jpg" % i))
+            
+
+    # save checkpoint
     save_checkpoint({
         'epoch': epoch,
         'state_dict': model.state_dict(),
@@ -262,26 +281,27 @@ def train(train_loader, model, optimizer, epoch, save_dir):
 
     return losses.avg, epoch_loss
 
-def test(model, test_loader, epoch, test_list, save_dir):
-    model.eval()
-    if not isdir(save_dir):
-        os.makedirs(save_dir)
-    for idx, image in enumerate(test_loader):
-        image = image.cuda()
-        _, _, H, W = image.shape
-        results = model(image)
-        result = torch.squeeze(results[-1].detach()).cpu().numpy()
-        results_all = torch.zeros((len(results), 1, H, W))
-        for i in range(len(results)):
-          results_all[i, 0, :, :] = results[i]
-        filename = splitext(test_list[idx])[0]
-        torchvision.utils.save_image(1-results_all, join(save_dir, "%s.jpg" % filename))
-        result = Image.fromarray((result * 255).astype(np.uint8))
-        result.save(join(save_dir, "%s.png" % filename))
-        print("Running test [%d/%d]" % (idx + 1, len(test_loader)))
+# def test(model, test_loader, epoch, save_dir):
+#     model.eval()
+#     if not isdir(save_dir):
+#         os.makedirs(save_dir)
+#     for idx, image in enumerate(test_loader):
+#         image = image.cuda()
+#         _, _, H, W = image.shape
+#         results = model(image)
+#         result = torch.squeeze(results[-1].detach()).cpu().numpy()
+#         results_all = torch.zeros((len(results), 1, H, W))
+#         for i in range(len(results)):
+#             results_all[i, 0, :, :] = results[i]
+        
+#         # filename = splitext(test_list[idx])[0]
+#         # torchvision.utils.save_image(1-results_all, join(save_dir, "%s.jpg" % filename))
+#         # result = Image.fromarray((result * 255).astype(np.uint8))
+#         # result.save(join(save_dir, "%s.png" % filename))
+#         print("Running test [%d/%d]" % (idx + 1, len(test_loader)))
 
 
-def multiscale_test(model, test_loader, epoch, test_list, save_dir):
+def multiscale_test(model, test_loader, epoch, save_dir):
     model.eval()
     if not isdir(save_dir):
         os.makedirs(save_dir)
@@ -299,13 +319,15 @@ def multiscale_test(model, test_loader, epoch, test_list, save_dir):
             fuse = cv2.resize(result, (W, H), interpolation=cv2.INTER_LINEAR)
             multi_fuse += fuse
         multi_fuse = multi_fuse / len(scale)
+
         ### rescale trick suggested by jiangjiang
         # multi_fuse = (multi_fuse - multi_fuse.min()) / (multi_fuse.max() - multi_fuse.min())
-        filename = splitext(test_list[idx])[0]
-        result_out = Image.fromarray(((1-multi_fuse) * 255).astype(np.uint8))
-        result_out.save(join(save_dir, "%s.jpg" % filename))
+
+        # filename = splitext(test_list[idx])[0]
+        # result_out = Image.fromarray(((1-multi_fuse) * 255).astype(np.uint8))
+        # result_out.save(join(save_dir, "%s.jpg" % filename))
         result_out_test = Image.fromarray((multi_fuse * 255).astype(np.uint8))
-        result_out_test.save(join(save_dir, "%s.png" % filename))
+        result_out_test.save(join(save_dir, "multiscale_tes_{0}.png".format(idx)))
         print("Running test [%d/%d]" % (idx + 1, len(test_loader)))
 
 
@@ -332,6 +354,64 @@ def cross_entropy_loss_RCF(prediction, label):
     cost = torch.nn.functional.binary_cross_entropy(
             prediction.float(),label.float(), weight=mask, reduce=False)
     return torch.sum(cost)
+
+########################################################################
+# Adversarial stuff
+########################################################################
+
+def normalize_l2(x):
+    """
+    Expects x.shape == [N, C, H, W]
+    """
+    norm = torch.norm(x.view(x.size(0), -1), p=2, dim=1)
+    norm = norm.unsqueeze(-1).unsqueeze(-1).unsqueeze(-1)
+    return x / norm
+
+
+def tensor_clamp_l2(x, center, radius):
+    """batched clamp of x into l2 ball around center of given radius"""
+    x = x.data
+    diff = x - center
+    diff_norm = torch.norm(diff.view(diff.size(0), -1), p=2, dim=1)
+    project_select = diff_norm > radius
+    if project_select.any():
+        diff_norm = diff_norm.unsqueeze(-1).unsqueeze(-1).unsqueeze(-1)
+        new_x = x
+        new_x[project_select] = (center + (diff / diff_norm) * radius)[project_select]
+        return new_x
+    else:
+        return x
+
+class PGD_l2(nn.Module):
+    def __init__(self, epsilon, num_steps, step_size):
+        super().__init__()
+        self.epsilon = epsilon
+        self.num_steps = num_steps
+        self.step_size = step_size
+
+    def forward(self, model, bx, by):
+        """
+        :param model: the classifier's forward method
+        :param bx: batch of images
+        :param by: true labels
+        :return: perturbed batch of images
+        """
+        init_noise = normalize_l2(torch.randn(bx.size()).cuda()) * np.random.rand() * self.epsilon
+        adv_bx = (bx + init_noise).clamp(0, 1).requires_grad_()
+
+        for i in range(self.num_steps):
+            outputs = model(adv_bx)
+
+            loss = torch.zeros(1).cuda()
+            for o in outputs:
+                loss = loss + cross_entropy_loss_RCF(o, label)
+
+            grad = normalize_l2(torch.autograd.grad(loss, adv_bx, only_inputs=True)[0])
+            adv_bx = adv_bx + self.step_size * grad
+            adv_bx = tensor_clamp_l2(adv_bx, bx, self.epsilon).clamp(0, 1)
+            adv_bx = adv_bx.data.requires_grad_()
+
+        return adv_bx
 
 if __name__ == '__main__':
     main()

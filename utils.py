@@ -86,7 +86,7 @@ def load_pretrained(model, fname, optimizer=None):
     else:
         print("=> no checkpoint found at '{}'".format(fname))
 
-def load_vgg16pretrain(model, vggmodel='vgg16convs.mat'):
+def load_vgg16pretrain(model, vggmodel='/home/saurav/vgg16convs.mat'):
     vgg16 = sio.loadmat(vggmodel)
     torch_params =  model.state_dict()
     for k in vgg16.keys():
@@ -98,7 +98,7 @@ def load_vgg16pretrain(model, vggmodel='vgg16convs.mat'):
             torch_params[name_space] = torch.from_numpy(data)
     model.load_state_dict(torch_params)
 
-def load_vgg16pretrain_half(model, vggmodel='vgg16convs.mat'):
+def load_vgg16pretrain_half(model, vggmodel='/home/saurav/vgg16convs.mat'):
     vgg16 = sio.loadmat(vggmodel)
     torch_params =  model.state_dict()
     for k in vgg16.keys():

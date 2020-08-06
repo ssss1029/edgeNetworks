@@ -5,3 +5,9 @@
 
 **/._*.png
 **/._*.jpg
+
+checkpoints/**/*.png
+checkpoints/**/*.jpg
+checkpoints/**/*.pth.tar
+checkpoints/**/*.pth
+checkpoints/**/*.pt

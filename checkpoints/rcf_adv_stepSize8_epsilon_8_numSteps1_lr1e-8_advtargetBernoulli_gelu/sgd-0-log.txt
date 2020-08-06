@@ -1,0 +1,750 @@
+Epoch: [0/30][0/49006] Time 1.056 (avg:1.056) Loss avg:1021.327332, Last 100 losses avg = 1021.3273315429688
+Epoch: [0/30][1000/49006] Time 0.058 (avg:0.118) Loss avg:1503.354972, Last 100 losses avg = 1352.603802945316
+Epoch: [0/30][2000/49006] Time 0.137 (avg:0.118) Loss avg:1474.400468, Last 100 losses avg = 1234.9216435992719
+Epoch: [0/30][3000/49006] Time 0.050 (avg:0.118) Loss avg:1434.386890, Last 100 losses avg = 1182.5814681211114
+Epoch: [0/30][4000/49006] Time 0.089 (avg:0.119) Loss avg:1413.892763, Last 100 losses avg = 1262.068843229413
+Epoch: [0/30][5000/49006] Time 0.062 (avg:0.118) Loss avg:1415.469407, Last 100 losses avg = 1470.3005203658342
+Epoch: [0/30][6000/49006] Time 0.144 (avg:0.119) Loss avg:1411.282499, Last 100 losses avg = 1818.5539078572392
+Epoch: [0/30][7000/49006] Time 0.175 (avg:0.119) Loss avg:1405.175324, Last 100 losses avg = 1409.2292650210857
+Epoch: [0/30][8000/49006] Time 0.063 (avg:0.119) Loss avg:1404.214281, Last 100 losses avg = 1492.873475036025
+Epoch: [0/30][9000/49006] Time 0.140 (avg:0.119) Loss avg:1401.126790, Last 100 losses avg = 1572.1828759756684
+Epoch: [0/30][10000/49006] Time 0.156 (avg:0.119) Loss avg:1401.756279, Last 100 losses avg = 1470.308471876979
+Epoch: [0/30][11000/49006] Time 0.126 (avg:0.119) Loss avg:1396.894686, Last 100 losses avg = 1633.62296954453
+Epoch: [0/30][12000/49006] Time 0.053 (avg:0.119) Loss avg:1388.694285, Last 100 losses avg = 1139.018660120666
+Epoch: [0/30][13000/49006] Time 0.047 (avg:0.120) Loss avg:1380.640472, Last 100 losses avg = 1389.6978459107877
+Epoch: [0/30][14000/49006] Time 0.171 (avg:0.120) Loss avg:1373.189954, Last 100 losses avg = 967.2055541020632
+Epoch: [0/30][15000/49006] Time 0.136 (avg:0.120) Loss avg:1369.050178, Last 100 losses avg = 1208.0280117464065
+Epoch: [0/30][16000/49006] Time 0.138 (avg:0.120) Loss avg:1367.180095, Last 100 losses avg = 1383.8009499779344
+Epoch: [0/30][17000/49006] Time 0.139 (avg:0.120) Loss avg:1362.499088, Last 100 losses avg = 1629.5813188514114
+Epoch: [0/30][18000/49006] Time 0.151 (avg:0.120) Loss avg:1363.324707, Last 100 losses avg = 1192.8279361641407
+Epoch: [0/30][19000/49006] Time 0.137 (avg:0.120) Loss avg:1364.375216, Last 100 losses avg = 1485.7752342110873
+Epoch: [0/30][20000/49006] Time 0.135 (avg:0.120) Loss avg:1365.139985, Last 100 losses avg = 1459.6597248017788
+Epoch: [0/30][21000/49006] Time 0.176 (avg:0.120) Loss avg:1360.510943, Last 100 losses avg = 1202.8008319163323
+Epoch: [0/30][22000/49006] Time 0.091 (avg:0.120) Loss avg:1361.718995, Last 100 losses avg = 1393.5570960557461
+Epoch: [0/30][23000/49006] Time 0.277 (avg:0.120) Loss avg:1360.229347, Last 100 losses avg = 1615.7095746421815
+Epoch: [0/30][24000/49006] Time 0.126 (avg:0.120) Loss avg:1359.191471, Last 100 losses avg = 1370.1981688651442
+Epoch: [0/30][25000/49006] Time 0.125 (avg:0.121) Loss avg:1359.716758, Last 100 losses avg = 1443.4217211791872
+Epoch: [0/30][26000/49006] Time 0.145 (avg:0.120) Loss avg:1356.400972, Last 100 losses avg = 1075.0457821446657
+Epoch: [0/30][27000/49006] Time 0.153 (avg:0.120) Loss avg:1353.861360, Last 100 losses avg = 1073.4412097370625
+Epoch: [0/30][28000/49006] Time 0.145 (avg:0.121) Loss avg:1355.797572, Last 100 losses avg = 1427.6224853777885
+Epoch: [0/30][29000/49006] Time 0.091 (avg:0.121) Loss avg:1357.032526, Last 100 losses avg = 1215.3190321671964
+Epoch: [0/30][30000/49006] Time 0.277 (avg:0.121) Loss avg:1358.132543, Last 100 losses avg = 1296.729555723667
+Epoch: [0/30][31000/49006] Time 0.139 (avg:0.121) Loss avg:1353.453716, Last 100 losses avg = 1481.728063571155
+Epoch: [0/30][32000/49006] Time 0.102 (avg:0.121) Loss avg:1350.780722, Last 100 losses avg = 1249.537189707756
+Epoch: [0/30][33000/49006] Time 0.142 (avg:0.121) Loss avg:1349.266671, Last 100 losses avg = 1014.9339402541518
+Epoch: [0/30][34000/49006] Time 0.212 (avg:0.121) Loss avg:1348.284410, Last 100 losses avg = 919.721436894834
+Epoch: [0/30][35000/49006] Time 0.180 (avg:0.121) Loss avg:1347.673970, Last 100 losses avg = 1348.1280451339483
+Epoch: [0/30][36000/49006] Time 0.128 (avg:0.121) Loss avg:1348.169568, Last 100 losses avg = 1538.6003127649426
+Epoch: [0/30][37000/49006] Time 0.141 (avg:0.122) Loss avg:1347.932481, Last 100 losses avg = 1314.4047672718764
+Epoch: [0/30][38000/49006] Time 0.129 (avg:0.122) Loss avg:1347.813169, Last 100 losses avg = 1110.6927306997777
+Epoch: [0/30][39000/49006] Time 0.126 (avg:0.122) Loss avg:1345.834940, Last 100 losses avg = 1427.2341334319115
+Epoch: [0/30][40000/49006] Time 0.147 (avg:0.122) Loss avg:1344.092896, Last 100 losses avg = 1265.317594936192
+Epoch: [0/30][41000/49006] Time 0.088 (avg:0.122) Loss avg:1343.264382, Last 100 losses avg = 1354.2601278167963
+Epoch: [0/30][42000/49006] Time 0.140 (avg:0.122) Loss avg:1342.928790, Last 100 losses avg = 1077.790497328639
+Epoch: [0/30][43000/49006] Time 0.086 (avg:0.122) Loss avg:1342.749785, Last 100 losses avg = 1348.8689205262065
+Epoch: [0/30][44000/49006] Time 0.135 (avg:0.122) Loss avg:1341.897750, Last 100 losses avg = 1549.0294851595163
+Epoch: [0/30][45000/49006] Time 0.050 (avg:0.122) Loss avg:1341.027384, Last 100 losses avg = 1074.0703931578994
+Epoch: [0/30][46000/49006] Time 0.275 (avg:0.122) Loss avg:1340.044917, Last 100 losses avg = 1221.2291343957186
+Epoch: [0/30][47000/49006] Time 0.086 (avg:0.122) Loss avg:1340.212471, Last 100 losses avg = 1475.3057339704037
+Epoch: [0/30][48000/49006] Time 0.067 (avg:0.122) Loss avg:1340.007787, Last 100 losses avg = 1446.4917558506131
+Epoch: [0/30][49000/49006] Time 0.144 (avg:0.122) Loss avg:1339.257623, Last 100 losses avg = 1160.1195846059918
+Running test [1/200]
+Running test [2/200]
+Running test [3/200]
+Running test [4/200]
+Running test [5/200]
+Running test [6/200]
+Running test [7/200]
+Running test [8/200]
+Running test [9/200]
+Running test [10/200]
+Running test [11/200]
+Running test [12/200]
+Running test [13/200]
+Running test [14/200]
+Running test [15/200]
+Running test [16/200]
+Running test [17/200]
+Running test [18/200]
+Running test [19/200]
+Running test [20/200]
+Running test [21/200]
+Running test [22/200]
+Running test [23/200]
+Running test [24/200]
+Running test [25/200]
+Running test [26/200]
+Running test [27/200]
+Running test [28/200]
+Running test [29/200]
+Running test [30/200]
+Running test [31/200]
+Running test [32/200]
+Running test [33/200]
+Running test [34/200]
+Running test [35/200]
+Running test [36/200]
+Running test [37/200]
+Running test [38/200]
+Running test [39/200]
+Running test [40/200]
+Running test [41/200]
+Running test [42/200]
+Running test [43/200]
+Running test [44/200]
+Running test [45/200]
+Running test [46/200]
+Running test [47/200]
+Running test [48/200]
+Running test [49/200]
+Running test [50/200]
+Running test [51/200]
+Running test [52/200]
+Running test [53/200]
+Running test [54/200]
+Running test [55/200]
+Running test [56/200]
+Running test [57/200]
+Running test [58/200]
+Running test [59/200]
+Running test [60/200]
+Running test [61/200]
+Running test [62/200]
+Running test [63/200]
+Running test [64/200]
+Running test [65/200]
+Running test [66/200]
+Running test [67/200]
+Running test [68/200]
+Running test [69/200]
+Running test [70/200]
+Running test [71/200]
+Running test [72/200]
+Running test [73/200]
+Running test [74/200]
+Running test [75/200]
+Running test [76/200]
+Running test [77/200]
+Running test [78/200]
+Running test [79/200]
+Running test [80/200]
+Running test [81/200]
+Running test [82/200]
+Running test [83/200]
+Running test [84/200]
+Running test [85/200]
+Running test [86/200]
+Running test [87/200]
+Running test [88/200]
+Running test [89/200]
+Running test [90/200]
+Running test [91/200]
+Running test [92/200]
+Running test [93/200]
+Running test [94/200]
+Running test [95/200]
+Running test [96/200]
+Running test [97/200]
+Running test [98/200]
+Running test [99/200]
+Running test [100/200]
+Running test [101/200]
+Running test [102/200]
+Running test [103/200]
+Running test [104/200]
+Running test [105/200]
+Running test [106/200]
+Running test [107/200]
+Running test [108/200]
+Running test [109/200]
+Running test [110/200]
+Running test [111/200]
+Running test [112/200]
+Running test [113/200]
+Running test [114/200]
+Running test [115/200]
+Running test [116/200]
+Running test [117/200]
+Running test [118/200]
+Running test [119/200]
+Running test [120/200]
+Running test [121/200]
+Running test [122/200]
+Running test [123/200]
+Running test [124/200]
+Running test [125/200]
+Running test [126/200]
+Running test [127/200]
+Running test [128/200]
+Running test [129/200]
+Running test [130/200]
+Running test [131/200]
+Running test [132/200]
+Running test [133/200]
+Running test [134/200]
+Running test [135/200]
+Running test [136/200]
+Running test [137/200]
+Running test [138/200]
+Running test [139/200]
+Running test [140/200]
+Running test [141/200]
+Running test [142/200]
+Running test [143/200]
+Running test [144/200]
+Running test [145/200]
+Running test [146/200]
+Running test [147/200]
+Running test [148/200]
+Running test [149/200]
+Running test [150/200]
+Running test [151/200]
+Running test [152/200]
+Running test [153/200]
+Running test [154/200]
+Running test [155/200]
+Running test [156/200]
+Running test [157/200]
+Running test [158/200]
+Running test [159/200]
+Running test [160/200]
+Running test [161/200]
+Running test [162/200]
+Running test [163/200]
+Running test [164/200]
+Running test [165/200]
+Running test [166/200]
+Running test [167/200]
+Running test [168/200]
+Running test [169/200]
+Running test [170/200]
+Running test [171/200]
+Running test [172/200]
+Running test [173/200]
+Running test [174/200]
+Running test [175/200]
+Running test [176/200]
+Running test [177/200]
+Running test [178/200]
+Running test [179/200]
+Running test [180/200]
+Running test [181/200]
+Running test [182/200]
+Running test [183/200]
+Running test [184/200]
+Running test [185/200]
+Running test [186/200]
+Running test [187/200]
+Running test [188/200]
+Running test [189/200]
+Running test [190/200]
+Running test [191/200]
+Running test [192/200]
+Running test [193/200]
+Running test [194/200]
+Running test [195/200]
+Running test [196/200]
+Running test [197/200]
+Running test [198/200]
+Running test [199/200]
+Running test [200/200]
+Epoch: [1/30][0/49006] Time 0.761 (avg:0.761) Loss avg:1723.128296, Last 100 losses avg = 1723.1282958984375
+Epoch: [1/30][1000/49006] Time 0.130 (avg:0.123) Loss avg:1295.662376, Last 100 losses avg = 995.1703222510218
+Epoch: [1/30][2000/49006] Time 0.127 (avg:0.122) Loss avg:1272.510509, Last 100 losses avg = 1366.5426682573557
+Epoch: [1/30][3000/49006] Time 0.138 (avg:0.123) Loss avg:1309.745484, Last 100 losses avg = 1326.4674256277085
+Epoch: [1/30][4000/49006] Time 0.050 (avg:0.123) Loss avg:1306.158539, Last 100 losses avg = 1390.953572307229
+Epoch: [1/30][5000/49006] Time 0.177 (avg:0.124) Loss avg:1308.068355, Last 100 losses avg = 1113.156224051118
+Epoch: [1/30][6000/49006] Time 0.126 (avg:0.123) Loss avg:1312.855475, Last 100 losses avg = 1328.798365008831
+Epoch: [1/30][7000/49006] Time 0.158 (avg:0.123) Loss avg:1307.549750, Last 100 losses avg = 1187.2135182246566
+Epoch: [1/30][8000/49006] Time 0.277 (avg:0.123) Loss avg:1312.857765, Last 100 losses avg = 1248.906212272942
+Epoch: [1/30][9000/49006] Time 0.086 (avg:0.123) Loss avg:1326.065397, Last 100 losses avg = 1523.1788115221261
+Epoch: [1/30][10000/49006] Time 0.060 (avg:0.124) Loss avg:1335.820084, Last 100 losses avg = 1362.612884964645
+Epoch: [1/30][11000/49006] Time 0.061 (avg:0.123) Loss avg:1325.320477, Last 100 losses avg = 1200.0310102400183
+Epoch: [1/30][12000/49006] Time 0.128 (avg:0.123) Loss avg:1328.929000, Last 100 losses avg = 1561.5402382525801
+Epoch: [1/30][13000/49006] Time 0.049 (avg:0.123) Loss avg:1324.916862, Last 100 losses avg = 1173.9677792051434
+Epoch: [1/30][14000/49006] Time 0.136 (avg:0.123) Loss avg:1320.388092, Last 100 losses avg = 1520.6007127702237
+Epoch: [1/30][15000/49006] Time 0.140 (avg:0.123) Loss avg:1317.688361, Last 100 losses avg = 1245.3228444489837
+Epoch: [1/30][16000/49006] Time 0.126 (avg:0.123) Loss avg:1313.525017, Last 100 losses avg = 1295.4629852318765
+Epoch: [1/30][17000/49006] Time 0.136 (avg:0.123) Loss avg:1314.716156, Last 100 losses avg = 1219.8054391384126
+Epoch: [1/30][18000/49006] Time 0.275 (avg:0.123) Loss avg:1313.248293, Last 100 losses avg = 1290.8112575745583
+Epoch: [1/30][19000/49006] Time 0.136 (avg:0.123) Loss avg:1320.656888, Last 100 losses avg = 1323.1945659720898
+Epoch: [1/30][20000/49006] Time 0.135 (avg:0.123) Loss avg:1320.367455, Last 100 losses avg = 1258.6793489089607
+Epoch: [1/30][21000/49006] Time 0.100 (avg:0.123) Loss avg:1316.562779, Last 100 losses avg = 980.5993681061268
+Epoch: [1/30][22000/49006] Time 0.096 (avg:0.123) Loss avg:1315.209191, Last 100 losses avg = 1261.4040802121162
+Epoch: [1/30][23000/49006] Time 0.057 (avg:0.123) Loss avg:1316.465703, Last 100 losses avg = 1731.4658545649052
+Epoch: [1/30][24000/49006] Time 0.065 (avg:0.123) Loss avg:1317.638191, Last 100 losses avg = 1303.7800365051628
+Epoch: [1/30][25000/49006] Time 0.138 (avg:0.123) Loss avg:1319.730577, Last 100 losses avg = 1687.2268194514513
+Epoch: [1/30][26000/49006] Time 0.077 (avg:0.123) Loss avg:1314.817153, Last 100 losses avg = 1019.5683452105523
+Epoch: [1/30][27000/49006] Time 0.088 (avg:0.123) Loss avg:1314.182516, Last 100 losses avg = 1128.9053786611557
+Epoch: [1/30][28000/49006] Time 0.120 (avg:0.123) Loss avg:1312.953967, Last 100 losses avg = 1214.1924355345964
+Epoch: [1/30][29000/49006] Time 0.066 (avg:0.123) Loss avg:1311.908882, Last 100 losses avg = 1305.9518815928698
+Epoch: [1/30][30000/49006] Time 0.137 (avg:0.123) Loss avg:1310.942363, Last 100 losses avg = 1162.3349917694927
+Epoch: [1/30][31000/49006] Time 0.088 (avg:0.123) Loss avg:1310.960393, Last 100 losses avg = 1542.8473253014683
+Epoch: [1/30][32000/49006] Time 0.147 (avg:0.123) Loss avg:1312.081898, Last 100 losses avg = 1515.1326942846179
+Epoch: [1/30][33000/49006] Time 0.135 (avg:0.123) Loss avg:1311.889522, Last 100 losses avg = 1354.989048908949
+Epoch: [1/30][34000/49006] Time 0.051 (avg:0.123) Loss avg:1309.579491, Last 100 losses avg = 1154.2029037463665
+Epoch: [1/30][35000/49006] Time 0.179 (avg:0.123) Loss avg:1308.039814, Last 100 losses avg = 1464.5847792205213
+Epoch: [1/30][36000/49006] Time 0.122 (avg:0.122) Loss avg:1306.910866, Last 100 losses avg = 1108.8011991500855
+Epoch: [1/30][37000/49006] Time 0.135 (avg:0.122) Loss avg:1303.875492, Last 100 losses avg = 824.2399185073376
+Epoch: [1/30][38000/49006] Time 0.105 (avg:0.122) Loss avg:1301.518573, Last 100 losses avg = 1571.0289127957822
+Epoch: [1/30][39000/49006] Time 0.080 (avg:0.122) Loss avg:1301.768044, Last 100 losses avg = 1363.0654005914926
+Epoch: [1/30][40000/49006] Time 0.144 (avg:0.122) Loss avg:1303.573425, Last 100 losses avg = 1244.2876900789142
+Epoch: [1/30][41000/49006] Time 0.103 (avg:0.122) Loss avg:1303.260017, Last 100 losses avg = 1169.3382093858718
+Epoch: [1/30][42000/49006] Time 0.052 (avg:0.122) Loss avg:1303.273943, Last 100 losses avg = 1434.268308595717
+Epoch: [1/30][43000/49006] Time 0.140 (avg:0.122) Loss avg:1303.014421, Last 100 losses avg = 1425.2015445053578
+Epoch: [1/30][44000/49006] Time 0.126 (avg:0.122) Loss avg:1303.282702, Last 100 losses avg = 1383.0078993996979
+Epoch: [1/30][45000/49006] Time 0.080 (avg:0.122) Loss avg:1304.015440, Last 100 losses avg = 1286.4021910873055
+Epoch: [1/30][46000/49006] Time 0.137 (avg:0.122) Loss avg:1304.452670, Last 100 losses avg = 1302.6889029943943
+Epoch: [1/30][47000/49006] Time 0.144 (avg:0.122) Loss avg:1306.441245, Last 100 losses avg = 1325.603987018764
+Epoch: [1/30][48000/49006] Time 0.137 (avg:0.122) Loss avg:1306.914154, Last 100 losses avg = 1411.8919358110427
+Epoch: [1/30][49000/49006] Time 0.147 (avg:0.122) Loss avg:1306.047602, Last 100 losses avg = 1036.4957744148373
+Running test [1/200]
+Running test [2/200]
+Running test [3/200]
+Running test [4/200]
+Running test [5/200]
+Running test [6/200]
+Running test [7/200]
+Running test [8/200]
+Running test [9/200]
+Running test [10/200]
+Running test [11/200]
+Running test [12/200]
+Running test [13/200]
+Running test [14/200]
+Running test [15/200]
+Running test [16/200]
+Running test [17/200]
+Running test [18/200]
+Running test [19/200]
+Running test [20/200]
+Running test [21/200]
+Running test [22/200]
+Running test [23/200]
+Running test [24/200]
+Running test [25/200]
+Running test [26/200]
+Running test [27/200]
+Running test [28/200]
+Running test [29/200]
+Running test [30/200]
+Running test [31/200]
+Running test [32/200]
+Running test [33/200]
+Running test [34/200]
+Running test [35/200]
+Running test [36/200]
+Running test [37/200]
+Running test [38/200]
+Running test [39/200]
+Running test [40/200]
+Running test [41/200]
+Running test [42/200]
+Running test [43/200]
+Running test [44/200]
+Running test [45/200]
+Running test [46/200]
+Running test [47/200]
+Running test [48/200]
+Running test [49/200]
+Running test [50/200]
+Running test [51/200]
+Running test [52/200]
+Running test [53/200]
+Running test [54/200]
+Running test [55/200]
+Running test [56/200]
+Running test [57/200]
+Running test [58/200]
+Running test [59/200]
+Running test [60/200]
+Running test [61/200]
+Running test [62/200]
+Running test [63/200]
+Running test [64/200]
+Running test [65/200]
+Running test [66/200]
+Running test [67/200]
+Running test [68/200]
+Running test [69/200]
+Running test [70/200]
+Running test [71/200]
+Running test [72/200]
+Running test [73/200]
+Running test [74/200]
+Running test [75/200]
+Running test [76/200]
+Running test [77/200]
+Running test [78/200]
+Running test [79/200]
+Running test [80/200]
+Running test [81/200]
+Running test [82/200]
+Running test [83/200]
+Running test [84/200]
+Running test [85/200]
+Running test [86/200]
+Running test [87/200]
+Running test [88/200]
+Running test [89/200]
+Running test [90/200]
+Running test [91/200]
+Running test [92/200]
+Running test [93/200]
+Running test [94/200]
+Running test [95/200]
+Running test [96/200]
+Running test [97/200]
+Running test [98/200]
+Running test [99/200]
+Running test [100/200]
+Running test [101/200]
+Running test [102/200]
+Running test [103/200]
+Running test [104/200]
+Running test [105/200]
+Running test [106/200]
+Running test [107/200]
+Running test [108/200]
+Running test [109/200]
+Running test [110/200]
+Running test [111/200]
+Running test [112/200]
+Running test [113/200]
+Running test [114/200]
+Running test [115/200]
+Running test [116/200]
+Running test [117/200]
+Running test [118/200]
+Running test [119/200]
+Running test [120/200]
+Running test [121/200]
+Running test [122/200]
+Running test [123/200]
+Running test [124/200]
+Running test [125/200]
+Running test [126/200]
+Running test [127/200]
+Running test [128/200]
+Running test [129/200]
+Running test [130/200]
+Running test [131/200]
+Running test [132/200]
+Running test [133/200]
+Running test [134/200]
+Running test [135/200]
+Running test [136/200]
+Running test [137/200]
+Running test [138/200]
+Running test [139/200]
+Running test [140/200]
+Running test [141/200]
+Running test [142/200]
+Running test [143/200]
+Running test [144/200]
+Running test [145/200]
+Running test [146/200]
+Running test [147/200]
+Running test [148/200]
+Running test [149/200]
+Running test [150/200]
+Running test [151/200]
+Running test [152/200]
+Running test [153/200]
+Running test [154/200]
+Running test [155/200]
+Running test [156/200]
+Running test [157/200]
+Running test [158/200]
+Running test [159/200]
+Running test [160/200]
+Running test [161/200]
+Running test [162/200]
+Running test [163/200]
+Running test [164/200]
+Running test [165/200]
+Running test [166/200]
+Running test [167/200]
+Running test [168/200]
+Running test [169/200]
+Running test [170/200]
+Running test [171/200]
+Running test [172/200]
+Running test [173/200]
+Running test [174/200]
+Running test [175/200]
+Running test [176/200]
+Running test [177/200]
+Running test [178/200]
+Running test [179/200]
+Running test [180/200]
+Running test [181/200]
+Running test [182/200]
+Running test [183/200]
+Running test [184/200]
+Running test [185/200]
+Running test [186/200]
+Running test [187/200]
+Running test [188/200]
+Running test [189/200]
+Running test [190/200]
+Running test [191/200]
+Running test [192/200]
+Running test [193/200]
+Running test [194/200]
+Running test [195/200]
+Running test [196/200]
+Running test [197/200]
+Running test [198/200]
+Running test [199/200]
+Running test [200/200]
+Epoch: [2/30][0/49006] Time 0.741 (avg:0.741) Loss avg:2482.514160, Last 100 losses avg = 2482.51416015625
+Epoch: [2/30][1000/49006] Time 0.088 (avg:0.122) Loss avg:1299.846896, Last 100 losses avg = 1291.4869585639237
+Epoch: [2/30][2000/49006] Time 0.062 (avg:0.121) Loss avg:1288.590304, Last 100 losses avg = 1336.9899761933088
+Epoch: [2/30][3000/49006] Time 0.145 (avg:0.121) Loss avg:1276.859358, Last 100 losses avg = 1324.5317580455542
+Epoch: [2/30][4000/49006] Time 0.133 (avg:0.122) Loss avg:1281.627569, Last 100 losses avg = 1104.5417071431875
+Epoch: [2/30][5000/49006] Time 0.128 (avg:0.123) Loss avg:1290.149800, Last 100 losses avg = 1485.140419369936
+Epoch: [2/30][6000/49006] Time 0.140 (avg:0.123) Loss avg:1286.981550, Last 100 losses avg = 1164.3860719269514
+Epoch: [2/30][7000/49006] Time 0.137 (avg:0.122) Loss avg:1286.716910, Last 100 losses avg = 1338.9622639009356
+Epoch: [2/30][8000/49006] Time 0.139 (avg:0.122) Loss avg:1285.167394, Last 100 losses avg = 1105.557485166192
+Epoch: [2/30][9000/49006] Time 0.126 (avg:0.123) Loss avg:1289.341473, Last 100 losses avg = 1137.9877416314184
+Epoch: [2/30][10000/49006] Time 0.127 (avg:0.122) Loss avg:1282.207822, Last 100 losses avg = 1658.760760704279
+Epoch: [2/30][11000/49006] Time 0.064 (avg:0.122) Loss avg:1285.788542, Last 100 losses avg = 1408.987337936461
+Epoch: [2/30][12000/49006] Time 0.138 (avg:0.122) Loss avg:1289.390684, Last 100 losses avg = 1294.5019798845053
+Epoch: [2/30][13000/49006] Time 0.153 (avg:0.122) Loss avg:1288.578911, Last 100 losses avg = 1186.4359725874663
+Epoch: [2/30][14000/49006] Time 0.135 (avg:0.122) Loss avg:1285.942515, Last 100 losses avg = 1130.1527127921581
+Epoch: [2/30][15000/49006] Time 0.126 (avg:0.122) Loss avg:1287.632596, Last 100 losses avg = 1083.6034248667956
+Epoch: [2/30][16000/49006] Time 0.134 (avg:0.122) Loss avg:1292.770597, Last 100 losses avg = 1335.5527413666248
+Epoch: [2/30][17000/49006] Time 0.066 (avg:0.122) Loss avg:1296.237290, Last 100 losses avg = 1403.7582926505804
+Epoch: [2/30][18000/49006] Time 0.084 (avg:0.122) Loss avg:1298.703482, Last 100 losses avg = 1397.5209641289712
+Epoch: [2/30][19000/49006] Time 0.170 (avg:0.123) Loss avg:1297.197275, Last 100 losses avg = 1467.0876183015107
+Epoch: [2/30][20000/49006] Time 0.128 (avg:0.122) Loss avg:1296.402267, Last 100 losses avg = 1542.0972111472488
+Epoch: [2/30][21000/49006] Time 0.066 (avg:0.123) Loss avg:1297.546645, Last 100 losses avg = 1380.7024796518683
+Epoch: [2/30][22000/49006] Time 0.175 (avg:0.122) Loss avg:1297.811250, Last 100 losses avg = 1346.6838292562961
+Epoch: [2/30][23000/49006] Time 0.064 (avg:0.122) Loss avg:1299.203735, Last 100 losses avg = 1209.05362313658
+Epoch: [2/30][24000/49006] Time 0.058 (avg:0.123) Loss avg:1296.218739, Last 100 losses avg = 952.6690257480741
+Epoch: [2/30][25000/49006] Time 0.132 (avg:0.123) Loss avg:1297.181376, Last 100 losses avg = 1240.210726238489
+Epoch: [2/30][26000/49006] Time 0.060 (avg:0.123) Loss avg:1294.412903, Last 100 losses avg = 1119.991297992468
+Epoch: [2/30][27000/49006] Time 0.086 (avg:0.123) Loss avg:1296.849803, Last 100 losses avg = 1369.1511625179648
+Epoch: [2/30][28000/49006] Time 0.142 (avg:0.123) Loss avg:1295.062685, Last 100 losses avg = 1206.4412189926206
+Epoch: [2/30][29000/49006] Time 0.210 (avg:0.123) Loss avg:1293.094583, Last 100 losses avg = 1277.3187463745476
+Epoch: [2/30][30000/49006] Time 0.051 (avg:0.123) Loss avg:1296.453324, Last 100 losses avg = 1182.6106238347293
+Epoch: [2/30][31000/49006] Time 0.149 (avg:0.123) Loss avg:1293.616305, Last 100 losses avg = 1299.7145236754418
+Epoch: [2/30][32000/49006] Time 0.129 (avg:0.123) Loss avg:1294.150662, Last 100 losses avg = 1422.4318114042283
+Epoch: [2/30][33000/49006] Time 0.122 (avg:0.123) Loss avg:1291.196512, Last 100 losses avg = 1125.9283823597432
+Epoch: [2/30][34000/49006] Time 0.063 (avg:0.123) Loss avg:1290.827274, Last 100 losses avg = 1288.4430141165853
+Epoch: [2/30][35000/49006] Time 0.058 (avg:0.123) Loss avg:1292.551971, Last 100 losses avg = 1393.2370391947031
+Epoch: [2/30][36000/49006] Time 0.153 (avg:0.123) Loss avg:1290.073485, Last 100 losses avg = 1201.62822714746
+Epoch: [2/30][37000/49006] Time 0.140 (avg:0.123) Loss avg:1289.639933, Last 100 losses avg = 1331.7889096739889
+Epoch: [2/30][38000/49006] Time 0.144 (avg:0.123) Loss avg:1291.498665, Last 100 losses avg = 1525.0673661482333
+Epoch: [2/30][39000/49006] Time 0.171 (avg:0.123) Loss avg:1291.724897, Last 100 losses avg = 1266.5357521751523
+Epoch: [2/30][40000/49006] Time 0.094 (avg:0.123) Loss avg:1290.261897, Last 100 losses avg = 958.3448393377662
+Epoch: [2/30][41000/49006] Time 0.130 (avg:0.123) Loss avg:1290.867066, Last 100 losses avg = 1212.6627371436357
+Epoch: [2/30][42000/49006] Time 0.083 (avg:0.123) Loss avg:1290.962813, Last 100 losses avg = 1311.9773932719231
+Epoch: [2/30][43000/49006] Time 0.127 (avg:0.123) Loss avg:1291.099462, Last 100 losses avg = 1274.9137026309968
+Epoch: [2/30][44000/49006] Time 0.143 (avg:0.123) Loss avg:1291.102754, Last 100 losses avg = 1364.0550577849149
+Epoch: [2/30][45000/49006] Time 0.048 (avg:0.123) Loss avg:1292.063217, Last 100 losses avg = 1306.7137961143255
+Epoch: [2/30][46000/49006] Time 0.274 (avg:0.123) Loss avg:1293.384170, Last 100 losses avg = 1047.396146181822
+Epoch: [2/30][47000/49006] Time 0.082 (avg:0.123) Loss avg:1293.338932, Last 100 losses avg = 1035.8038736498356
+Epoch: [2/30][48000/49006] Time 0.126 (avg:0.123) Loss avg:1295.278391, Last 100 losses avg = 1370.081059217453
+Epoch: [2/30][49000/49006] Time 0.045 (avg:0.123) Loss avg:1296.421526, Last 100 losses avg = 1670.6293734687567
+Running test [1/200]
+Running test [2/200]
+Running test [3/200]
+Running test [4/200]
+Running test [5/200]
+Running test [6/200]
+Running test [7/200]
+Running test [8/200]
+Running test [9/200]
+Running test [10/200]
+Running test [11/200]
+Running test [12/200]
+Running test [13/200]
+Running test [14/200]
+Running test [15/200]
+Running test [16/200]
+Running test [17/200]
+Running test [18/200]
+Running test [19/200]
+Running test [20/200]
+Running test [21/200]
+Running test [22/200]
+Running test [23/200]
+Running test [24/200]
+Running test [25/200]
+Running test [26/200]
+Running test [27/200]
+Running test [28/200]
+Running test [29/200]
+Running test [30/200]
+Running test [31/200]
+Running test [32/200]
+Running test [33/200]
+Running test [34/200]
+Running test [35/200]
+Running test [36/200]
+Running test [37/200]
+Running test [38/200]
+Running test [39/200]
+Running test [40/200]
+Running test [41/200]
+Running test [42/200]
+Running test [43/200]
+Running test [44/200]
+Running test [45/200]
+Running test [46/200]
+Running test [47/200]
+Running test [48/200]
+Running test [49/200]
+Running test [50/200]
+Running test [51/200]
+Running test [52/200]
+Running test [53/200]
+Running test [54/200]
+Running test [55/200]
+Running test [56/200]
+Running test [57/200]
+Running test [58/200]
+Running test [59/200]
+Running test [60/200]
+Running test [61/200]
+Running test [62/200]
+Running test [63/200]
+Running test [64/200]
+Running test [65/200]
+Running test [66/200]
+Running test [67/200]
+Running test [68/200]
+Running test [69/200]
+Running test [70/200]
+Running test [71/200]
+Running test [72/200]
+Running test [73/200]
+Running test [74/200]
+Running test [75/200]
+Running test [76/200]
+Running test [77/200]
+Running test [78/200]
+Running test [79/200]
+Running test [80/200]
+Running test [81/200]
+Running test [82/200]
+Running test [83/200]
+Running test [84/200]
+Running test [85/200]
+Running test [86/200]
+Running test [87/200]
+Running test [88/200]
+Running test [89/200]
+Running test [90/200]
+Running test [91/200]
+Running test [92/200]
+Running test [93/200]
+Running test [94/200]
+Running test [95/200]
+Running test [96/200]
+Running test [97/200]
+Running test [98/200]
+Running test [99/200]
+Running test [100/200]
+Running test [101/200]
+Running test [102/200]
+Running test [103/200]
+Running test [104/200]
+Running test [105/200]
+Running test [106/200]
+Running test [107/200]
+Running test [108/200]
+Running test [109/200]
+Running test [110/200]
+Running test [111/200]
+Running test [112/200]
+Running test [113/200]
+Running test [114/200]
+Running test [115/200]
+Running test [116/200]
+Running test [117/200]
+Running test [118/200]
+Running test [119/200]
+Running test [120/200]
+Running test [121/200]
+Running test [122/200]
+Running test [123/200]
+Running test [124/200]
+Running test [125/200]
+Running test [126/200]
+Running test [127/200]
+Running test [128/200]
+Running test [129/200]
+Running test [130/200]
+Running test [131/200]
+Running test [132/200]
+Running test [133/200]
+Running test [134/200]
+Running test [135/200]
+Running test [136/200]
+Running test [137/200]
+Running test [138/200]
+Running test [139/200]
+Running test [140/200]
+Running test [141/200]
+Running test [142/200]
+Running test [143/200]
+Running test [144/200]
+Running test [145/200]
+Running test [146/200]
+Running test [147/200]
+Running test [148/200]
+Running test [149/200]
+Running test [150/200]
+Running test [151/200]
+Running test [152/200]
+Running test [153/200]
+Running test [154/200]
+Running test [155/200]
+Running test [156/200]
+Running test [157/200]
+Running test [158/200]
+Running test [159/200]
+Running test [160/200]
+Running test [161/200]
+Running test [162/200]
+Running test [163/200]
+Running test [164/200]
+Running test [165/200]
+Running test [166/200]
+Running test [167/200]
+Running test [168/200]
+Running test [169/200]
+Running test [170/200]
+Running test [171/200]
+Running test [172/200]
+Running test [173/200]
+Running test [174/200]
+Running test [175/200]
+Running test [176/200]
+Running test [177/200]
+Running test [178/200]
+Running test [179/200]
+Running test [180/200]
+Running test [181/200]
+Running test [182/200]
+Running test [183/200]
+Running test [184/200]
+Running test [185/200]
+Running test [186/200]
+Running test [187/200]
+Running test [188/200]
+Running test [189/200]
+Running test [190/200]
+Running test [191/200]
+Running test [192/200]
+Running test [193/200]
+Running test [194/200]
+Running test [195/200]
+Running test [196/200]
+Running test [197/200]
+Running test [198/200]
+Running test [199/200]
+Running test [200/200]

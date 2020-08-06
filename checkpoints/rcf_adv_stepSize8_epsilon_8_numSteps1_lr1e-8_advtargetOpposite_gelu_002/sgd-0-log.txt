@@ -1,0 +1,2 @@
+Epoch: [0/30][0/49006] Time 1.041 (avg:1.041) Loss avg:5522.024902, Last 100 losses avg = 5522.02490234375
+Epoch: [0/30][1000/49006] Time 0.115 (avg:0.116) Loss avg:1850.571752, Last 100 losses avg = 1666.2252469021082

@@ -18,13 +18,17 @@ class Config:
     # Shared args to put onto all of the JOBS
     SHARED_ARGS = " "
 
-    SLURM_HEADER = "srun --pty -p gpu_jsteinhardt -w shaodwfax -c 10 --gres=gpu:1g"
+    SLURM_HEADER = "srun --pty -p gpu_jsteinhardt -w smaug-gpu -c 10 --gres=gpu:1"
 
     # Specifies tasks to run. It maps tmux session name to the command to run in that session.
     JOBS = {
-        "rdc_adv_stepSize8_epsilon_8_numSteps1_lr1e-8_advtargetBernoulli" : "python3 train_RCF_adv.py --resume=/data/sauravkadavath/RCFcheckpoint_epoch12.pth --print_freq=1000 --tmp=checkpoints/rcf_adv_stepSize8_epsilon_8_numSteps1_lr1e-8 --num-steps=1 --step-size=8 --epsilon=8 --lr=1e-8 --adv-target=bernoulli,
+        # "rcf_adv_stepSize8_epsilon_8_numSteps1_lr1e-8_advtargetBernoulli_gelu" : "python3 train_RCF_adv.py --resume=/data/sauravkadavath/RCFcheckpoint_epoch12.pth --print_freq=1000 --tmp=checkpoints/rcf_adv_stepSize8_epsilon_8_numSteps1_lr1e-8_advtargetBernoulli_gelu --num-steps=1 --step-size=8 --epsilon=8 --lr=1e-8 --adv-target=bernoulli",
         
-        "rdc_adv_stepSize8_epsilon_8_numSteps1_lr1e-8_advtargetOpposite" : "python3 train_RCF_adv.py --resume=/data/sauravkadavath/RCFcheckpoint_epoch12.pth --print_freq=1000 --tmp=checkpoints/rcf_adv_stepSize8_epsilon_8_numSteps1_lr1e-8 --num-steps=1 --step-size=8 --epsilon=8 --lr=1e-8 --adv-target=opposite",
+        # "rcf_adv_stepSize8_epsilon_8_numSteps1_lr1e-8_advtargetOpposite_gelu" : "python3 train_RCF_adv.py --resume=/data/sauravkadavath/RCFcheckpoint_epoch12.pth --print_freq=1000 --tmp=checkpoints/rcf_adv_stepSize8_epsilon_8_numSteps1_lr1e-8_advtargetOpposite_gelu --num-steps=1 --step-size=8 --epsilon=8 --lr=1e-8 --adv-target=opposite"
+
+        "imagenet100_resnet50_edges_adv_numsteps_0_epsilon_4-225_stepSize_4-225_lr1e-2" : "python3 train_classifier_edges.py --classifier-pretrained-path=/accounts/projects/jsteinhardt/sauravkadavath/imagenet_model_weights_4px.pth.tar --rcf-path=/data/sauravkadavath/edgeNetworks-checkpoints/rcf_adv_stepSize8_epsilon_8_numSteps1_lr1e-8_advtargetBernoulli_gelu_002/checkpoint.pth --arch=resnet50 --data-standard=/data/imagenet/train/ --data-val=/data/imagenet/val/ --num-steps=0 --epsilon=0.0156862745 --step-size=0.0156862745 --batch-size=128 --dataset=imagenet100 --lr=0.01 --save=checkpoints/imagenet100_resnet50_edges_adv_numsteps_0_epsilon_4-225_stepSize_4-225_lr1e-2"
+
+        "imagenet100_resnet50_edges_adv_numsteps_1_epsilon_4-225_stepSize_4-225_lr1e-2" : "python3 train_classifier_edges.py --classifier-pretrained-path=/accounts/projects/jsteinhardt/sauravkadavath/imagenet_model_weights_4px.pth.tar --rcf-path=/data/sauravkadavath/edgeNetworks-checkpoints/rcf_adv_stepSize8_epsilon_8_numSteps1_lr1e-8_advtargetBernoulli_gelu_002/checkpoint.pth --arch=resnet50 --data-standard=/data/imagenet/train/ --data-val=/data/imagenet/val/ --num-steps=1 --epsilon=0.0156862745 --step-size=0.0156862745 --batch-size=128 --dataset=imagenet100 --lr=0.01 --save=checkpoints/imagenet100_resnet50_edges_adv_numsteps_1_epsilon_4-225_stepSize_4-225_lr1e-2",
     }
 
     # Time to wait between putting jobs on GPUs (in seconds). This is useful because it might take time 

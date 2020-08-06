@@ -193,12 +193,12 @@ def main():
             train_loader, model, optimizer, epoch,
             save_dir = join(TMP_DIR, 'epoch-%d-training-record' % epoch))
 
-        with torch.no_grad():
-            # test(model, test_loader, epoch=epoch,
-            #     save_dir = join(TMP_DIR, 'epoch-%d-testing-record-view' % epoch))
+        # with torch.no_grad():
+        #     # test(model, test_loader, epoch=epoch,
+        #     #     save_dir = join(TMP_DIR, 'epoch-%d-testing-record-view' % epoch))
 
-            multiscale_test(model, test_loader, epoch=epoch,
-                save_dir = join(TMP_DIR, 'epoch-%d-testing-record' % epoch))
+        #     # multiscale_test(model, test_loader, epoch=epoch,
+        #     #     save_dir = join(TMP_DIR, 'epoch-%d-testing-record' % epoch))
 
         log.flush() # write log
 
@@ -403,9 +403,13 @@ class PGD(nn.Module):
         :return: perturbed batch of images
         """
 
+        if self.num_steps == 0:
+            return bx
+
         if args.adv_target == 'bernoulli':
             by = torch.round(torch.rand_like(by))
         elif args.adv_target == 'opposite':
+            # Target is the 'right' one, but we maximize loss here
             by = by
         else:
             raise NotImplementedError()

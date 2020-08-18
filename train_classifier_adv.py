@@ -147,7 +147,16 @@ else:
 
 mean = [0.485, 0.456, 0.406]
 std = [0.229, 0.224, 0.225]
-preprocess = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mean, std)])
+# normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+#                                     std=[0.229, 0.224, 0.225])
+
+def normalize_batch(batch):
+    assert batch.shape[1] == 3
+    new_batch = torch.zeros_like(batch)
+    new_batch[:, 0] = (batch[:, 0] - mean[0]) / std[0]
+    new_batch[:, 1] = (batch[:, 1] - mean[1]) / std[1]
+    new_batch[:, 2] = (batch[:, 2] - mean[2]) / std[2]
+    return new_batch
 
 
 # class StridedImageFolder(datasets.ImageFolder):
@@ -295,21 +304,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
     print("=> creating model '{}'".format(args.arch))
     model = models.__dict__[args.arch](pretrained=True)
-    model.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
-    model.fc = torch.nn.Linear(512, len(classes_chosen))
-
-    from RCF import RCF
-    edge_detector = RCF()
-    edge_detector.cuda()
-    if os.path.isfile(args.rcf_path): 
-        print("=> loading checkpoint '{}'".format(args.rcf_path))
-        checkpoint = torch.load(args.rcf_path)
-        edge_detector.load_state_dict(checkpoint['state_dict'])
-        print("=> loaded checkpoint '{}'".format(args.rcf_path))
-    else:
-        print("=> no checkpoint found at '{}'".format(args.rcf_path))
-        raise Exception()
-    edge_detector = torch.nn.DataParallel(edge_detector).cuda()
+    model.fc = torch.nn.Linear(2048, len(classes_chosen))
 
     if args.distributed:
         # For multiprocessing distributed, DistributedDataParallel constructor
@@ -485,12 +480,12 @@ def main_worker(gpu, ngpus_per_node, args):
             train_sampler.set_epoch(epoch)
 
         # train for one epoch
-        train_losses_avg, train_top1_avg, train_top5_avg = train(train_loader, edge_detector, model, criterion, optimizer, scheduler, epoch, args)
+        train_losses_avg, train_top1_avg, train_top5_avg = train(train_loader, model, criterion, optimizer, scheduler, epoch, args)
 
         print("Evaluating on validation set")
 
         # evaluate on validation set
-        val_losses_avg, val_top1_avg, val_top5_avg = validate(val_loader, edge_detector, model, criterion, args)
+        val_losses_avg, val_top1_avg, val_top5_avg = validate(val_loader, model, criterion, args)
 
         print("Finished Evaluating on validation set")
 
@@ -517,7 +512,7 @@ def main_worker(gpu, ngpus_per_node, args):
             }, is_best)
 
 
-def train(train_loader, edge_detector, model, criterion, optimizer, scheduler, epoch, args):
+def train(train_loader, model, criterion, optimizer, scheduler, epoch, args):
     batch_time = AverageMeter('Time', ':6.3f')
     data_time = AverageMeter('Data', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
@@ -531,7 +526,6 @@ def train(train_loader, edge_detector, model, criterion, optimizer, scheduler, e
 
     # switch to train mode
     model.train()
-    edge_detector.eval()
 
     adversary = PGD(epsilon=args.epsilon, num_steps=args.num_steps, step_size=args.step_size).cuda()
 
@@ -543,14 +537,9 @@ def train(train_loader, edge_detector, model, criterion, optimizer, scheduler, e
         bx = images.cuda(args.gpu, non_blocking=True)
         by = target.cuda(args.gpu, non_blocking=True)
 
-        bx = adversary(edge_detector, model, bx, by)
+        bx = adversary(model, bx, by)
         
-        with torch.no_grad():
-            bx = edge_detector(sub_mean_edge_detector(bx * 255.0))[-1]
-        
-        torchvision.utils.save_image(bx[:5], os.path.join(args.save, "edges.png"))
-
-        logits = model(bx)
+        logits = model(normalize_batch(bx))
         loss = criterion(logits, by)
         output, target = logits, by 
 
@@ -576,16 +565,8 @@ def train(train_loader, edge_detector, model, criterion, optimizer, scheduler, e
     
     return losses.avg, top1.avg, top5.avg
 
-def sub_mean_edge_detector(image):
-    means = [104.00698793,116.66876762,122.67891434]
-    new_image = torch.zeros_like(image)
-    new_image[:,0] = image[:,0] - means[0]
-    new_image[:,1] = image[:,1] - means[1]
-    new_image[:,2] = image[:,2] - means[2]
-    return new_image
 
-
-def validate(val_loader, edge_detector, model, criterion, args):
+def validate(val_loader, model, criterion, args):
     batch_time = AverageMeter('Time', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
     top1 = AverageMeter('Acc@1', ':6.2f')
@@ -597,7 +578,6 @@ def validate(val_loader, edge_detector, model, criterion, args):
 
     # switch to evaluate mode
     model.eval()
-    edge_detector.eval()
 
     with torch.no_grad():
         end = time.time()
@@ -606,8 +586,7 @@ def validate(val_loader, edge_detector, model, criterion, args):
             target = target.cuda(args.gpu, non_blocking=True)
 
             # compute output
-            bx = edge_detector(sub_mean_edge_detector(bx * 255.0))[-1]
-            output = model(bx)
+            output = model(normalize_batch(bx))
             loss = criterion(output, target)
 
             # measure accuracy and record loss
@@ -701,7 +680,7 @@ class PGD(nn.Module):
         self.num_steps = num_steps
         self.step_size = step_size
 
-    def forward(self, edge_detector, model, bx, by):
+    def forward(self, model, bx, by):
         """
         :param model: the classifier's forward method
         :param bx: batch of images
@@ -720,8 +699,10 @@ class PGD(nn.Module):
             adv_bx.requires_grad_()
 
             with torch.enable_grad():
-                logits = model(edge_detector(sub_mean_edge_detector(adv_bx * 255.0))[-1])
+                logits = model(normalize_batch(adv_bx))
                 loss = F.cross_entropy(logits, by, reduction='sum')
+
+                # print(loss.item())
             
             grad = torch.autograd.grad(loss, adv_bx, only_inputs=True)[0]
             adv_bx = adv_bx.detach() + self.step_size * torch.sign(grad.detach())
